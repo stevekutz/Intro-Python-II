@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -49,3 +49,28 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+def go_direction(try_direction, current_room):
+    attribute = try_direction + '_to'
+
+    if hasattr(current_room, attribute):
+        new_room = getattr(current_room, attribute)
+        return  new_room
+    else:
+        print(f'This direction goes no where(yet)') 
+        return current_room   
+
+player_name = input('Please enter your name!')
+player = Player(player_name, room['outside'])
+
+player_input = ""
+
+#print(f'{player.name.title()} is currently in {player.current_room}')
+while player_input != 'q':
+    print(f' \t {player.name.title()} is currently in {player.current_room}')
+    player_input = input('Choose directions: n, s, e, w OR q to quit ')
+
+    if player_input == 'n' or player_input == 's' or player_input == 'e' or player_input == 'w':
+        player.current_room = go_direction(player_input, player.current_room)
+    elif(player_input == 'q'):
+        print(f'Thanks for playing {player_name}')
