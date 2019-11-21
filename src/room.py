@@ -7,8 +7,11 @@ class Room():
         self.description = description
         #self.items = items
         
-
+    # without this, it just returns Mags is currently in <room.Room object at 0x108cc2730>
     def __repr__(self):
-        return f'This is the {self.name} room'    
+        return f'the {self.name} room'    
+
+    def __str__(self):
+        return f'the {self.name} room'  
 
         # going to add item stuff here    

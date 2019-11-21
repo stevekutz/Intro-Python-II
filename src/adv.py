@@ -33,6 +33,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+print(room['foyer'])
 #
 # Main
 #
@@ -54,23 +55,28 @@ def go_direction(try_direction, current_room):
     attribute = try_direction + '_to'
 
     if hasattr(current_room, attribute):
-        new_room = getattr(current_room, attribute)
-        return  new_room
+        return getattr(current_room, attribute)
     else:
-        print(f'This direction goes no where(yet)') 
+        print(f' Oops!! This direction goes no where(yet)') 
         return current_room   
 
-player_name = input('Please enter your name!')
+player_name = input('Please enter your name!  ')
 player = Player(player_name, room['outside'])
 
 player_input = ""
 
 #print(f'{player.name.title()} is currently in {player.current_room}')
 while player_input != 'q':
+   # print(f' \t {player.name.title()} is currently in {player.current_room}')
+    player_prompt = "\t\t\t North is n, South is s, East is e, West is w \n"
+    player_prompt += "\t\t\t\t Choose q to quit \n"
+    player_prompt += "Choose directions: n, s, e, w OR q to quit "
     print(f' \t {player.name.title()} is currently in {player.current_room}')
-    player_input = input('Choose directions: n, s, e, w OR q to quit ')
+    player_input = input(player_prompt).lower()
 
     if player_input == 'n' or player_input == 's' or player_input == 'e' or player_input == 'w':
         player.current_room = go_direction(player_input, player.current_room)
     elif(player_input == 'q'):
         print(f'Thanks for playing {player_name}')
+    else: 
+        print('ERROR!  enter a valid letter choice: n, s, e, w, or q ')    
